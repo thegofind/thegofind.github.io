@@ -11,12 +11,13 @@ email: 43659894@qq.com
 author: TheGoFind
 avatar: "//www.gravatar.com/avatar/your_email_md5?d=mm&s=135"
 profile: Hi, this is Chen HaoRan. Welcome to my blog. I hope you will enjoy it.
-#twitter_username: twitter_username
+homepage_username: thegofind
 github_username:  thegofind
 
 # Comment Service (Disqus or 多说)
 #  choose one and un-comment the line to active it
-#disqus_shortname: xxx   # get one: https://disqus.com/admin/signup/
+disqus_shortname: thegofind   
+# get one: https://disqus.com/admin/signup/
 #duoshuo_shortname: xxx  # get one: http://duoshuo.com/create-site/
 
 permalink: /archivers/:title
