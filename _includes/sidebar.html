@@ -1,17 +1,17 @@
 <div class="col-box">
-<h4>Aboutme</h4>
+<h4 style="font-size: 16px;font-weight: bold;color: #424242;">Aboutme</h4>
   <img class="avatar" src="{{ site.avatar }}" alt="{{ site.author }}">
   <p>{{ site.profile }}</p>
   <p class="contactme">
   You can contact me via:
     {% if site.email %}
-    <a href="mailto:{{ site.email }}">Email</a>
+    <a href="mailto:{{ site.email }}">Email</a>/
     {% endif %}
     {% if site.github_username %}
-    <a href="https://github.com/{{ site.github_username }}">GitHub</a>
+    <a href="https://github.com/{{ site.github_username }}">GitHub</a>/
     {% endif %}
-    {% if site.twitter_username %}
-    <a href="https://twitter.com/{{ site.twitter_username }}">Twitter</a>
+    {% if site.homepage_username %}
+    <a href="https://www.thegofind.cn">thegofind.cn</a>
     {% endif %}
   </p>
 </div>
