@@ -11,7 +11,7 @@
     <a href="https://github.com/{{ site.github_username }}">GitHub</a>/
     {% endif %}
     {% if site.homepage_username %}
-    <a href="https://www.{{ site.homepage_username }}.cn">TheGoFind.cn</a>
+    <a href="http://www.{{ site.homepage_username }}.cn">TheGoFind.cn</a>
     {% endif %}
   </p>
 </div>
@@ -42,7 +42,7 @@
 <div class="col-box">
   <div class="col-box-title">Categories</div>
   {% for cat in site.categories %}
-  <li><a href="{{ site.baseurl }}/categories/#{{ cat[0] }}" title="{{ cat[0] }}" rel="{{ cat[1].size }}">{{ cat[0] }} ({{ cat[1].size }})</a></li>
+  <li><a href="{{ site.baseurl }}/category/#{{ cat[0] }}" title="{{ cat[0] }}" rel="{{ cat[1].size }}">{{ cat[0] }} ({{ cat[1].size }})</a></li>
   {% endfor %}
 </div>
 
