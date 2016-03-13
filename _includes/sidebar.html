@@ -15,6 +15,18 @@
   </p>
 </div>
 
+<br><br>
+
+<div class="col-box">
+  <div class="col-box-title">Site Search</div>
+  <form onsubmit="search_google()" >
+    <input type="text" id="google-search" placeholder="Google search" />
+    <input type="submit" name="sa" value="Go" />
+  </form>
+</div>
+
+<br>
+
 <div class="col-box">
   <div class="col-box-title">Newest Posts</div>
   <ul class="post-list">
@@ -23,6 +35,17 @@
     {% endfor %}
   </ul>
 </div>
+
+<br>
+
+<div class="col-box">
+  <div class="col-box-title">Categories</div>
+  {% for cat in site.categories %}
+  <li><a href="{{ site.baseurl }}/categories/#{{ cat[0] }}" title="{{ cat[0] }}" rel="{{ cat[1].size }}">{{ cat[0] }} ({{ cat[1].size }})</a></li>
+  {% endfor %}
+</div>
+
+<br>
 
 <div class="col-box post-toc hide">
   <div class="col-box-title">TOC</div>
