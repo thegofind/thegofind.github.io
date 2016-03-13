@@ -1,16 +1,17 @@
-<div class="col-box col-box-author">
+<div class="col-box">
+<h4>Aboutme</h4>
   <img class="avatar" src="{{ site.avatar }}" alt="{{ site.author }}">
-  <div class="col-box-title name">{{ site.author }}</div>
   <p>{{ site.profile }}</p>
-  <p class="contact">
+  <p class="contactme">
+  You can contact me via:
+    {% if site.email %}
+    <a href="mailto:{{ site.email }}">Email</a>
+    {% endif %}
     {% if site.github_username %}
     <a href="https://github.com/{{ site.github_username }}">GitHub</a>
     {% endif %}
     {% if site.twitter_username %}
     <a href="https://twitter.com/{{ site.twitter_username }}">Twitter</a>
-    {% endif %}
-    {% if site.email %}
-    <a href="mailto:{{ site.email }}">Email</a>
     {% endif %}
   </p>
 </div>
