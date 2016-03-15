@@ -31,7 +31,7 @@ paginate: 5
 paginate_path: "page:num"
 
 highlighter: rouge
-markdown: kramdown
+markdown: Cmd Markdown
 
 kramdown:
   input: GFM
