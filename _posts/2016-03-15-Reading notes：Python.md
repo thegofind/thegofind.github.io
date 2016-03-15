@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python
+title: Reading notes：Python
 categories: [Python, Reading notes]
 fullview: true
 ---
