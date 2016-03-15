@@ -32,12 +32,12 @@ cast = ['cleese','palin','jones','idle']
 ```python   
     cast.append('gilliam')
     cast.insert(0,'chapman')
-    cast.extend(['gilliam','chapman']) //添加另一个列表
+    cast.extend(['gilliam','chapman']) #添加另一个列表
 ```
 - 删除
 
 ```python
-    cast.pop()      //会返回被删除的对象
+    cast.pop()      #会返回被删除的对象
     cast.pop(1) 
     cast.remove('chapman')
 ```
@@ -46,7 +46,7 @@ cast = ['cleese','palin','jones','idle']
 
 ```python
     h = ['Apple', 123, True]
-    n = ['python', 'java', ['asp', 'php'], 'scheme']  //长度为4，取'php'用n[2][1]
+    n = ['python', 'java', ['asp', 'php'], 'scheme']  #长度为4，取'php'用n[2][1]
 ```
 
 - 列表循环
