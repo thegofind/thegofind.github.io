@@ -1,8 +1,9 @@
 ---
 layout: post
-title: Reading notes：Python
+title:  "Reading notes：Python"
+date:   2014-12-30 09:00:13
 categories: [Python, Reading notes]
-fullview: true
+permalink: /archivers/reading-notes-python
 ---
 本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
 
@@ -54,4 +55,29 @@ cast = ['cleese','palin','jones','idle']
 fav_movies = ['the holy grail','the life of brian']
     for each_flick in fav_movers:
         print(each_flick)
+```
+
+- 在python shell中打开模块文件
+
+```python
+#导入 C:\whatever\python\nester\nester.py 文件
+#sys.path 命令可以查看Python模块在计算机上的位置
+#sys.path.append()和sys.path.pop(-1)对这些模块进行修改
+
+import sys
+sys.path.append("C:\\whatever\\python\\nester") 
+import nester 
+
+```
+
+- 模块文件编码报错：
+
+在编写Python时，当使用中文输出或注释时运行脚本，会提示错误信息：
+SyntaxError: Non-ASCII character '\xe5' in file *******
+
+解决方法：
+在文件开头加入(一定要添加在源代码的第一行)：
+
+```python
+# -*- coding: UTF-8 -*- 或者  #coding=utf-8
 ```
