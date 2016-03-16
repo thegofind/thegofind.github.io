@@ -57,12 +57,13 @@ fav_movies = ['the holy grail','the life of brian']
         print(each_flick)
 ```
 
-
 # 构建发布
 
-### 准备文件
+## 准备文件
 
 - nester.py
+
+模块是一个包含Python代码的文本文件
 
 ```python
 # -*- coding: UTF-8 -*- 
@@ -75,6 +76,8 @@ def print_list_item(the_list):
 ```
 
 - setup.py
+
+setup.py程序提供了模块的元数据，用来构建、安装和上传打包的发布。每次版本更新需要更改元数据version。
 
 ```python
 from distutils.core import setup
@@ -90,7 +93,7 @@ setup(
 )
 ```
 
-### 构建一个发布文件
+## 构建一个发布文件
 在nester.py（C:\whatever\python\nester\nester.py）所在目录下打开一个终端窗口，键入一行命令：python setup.py sdist
 
 ```python
@@ -112,7 +115,7 @@ adding 'nester-1.0.0\setup.py'
 removing 'nester-1.0.0' (and everything under it)
 ```
 
-### 将发布安装到Python本地副本中
+## 安装Python本地副本
 
 在终端中，键入以下命令：python setup.py install
 
@@ -134,7 +137,7 @@ Writing C:\Users\hamrf\Anaconda2\Lib\site-packages\nester-1.0.0-py2.7.egg-info
 
 Python会在特定的一组位置寻找模块（详见import sys;sys.path），如果模块未在Python的路径列表中，就会导致ImportError错误。使用发布工具来构建模块并安装到你的Python本地副本中，就能避免这种错误。
 
-- 实例1
+- 示例1
 
 ```python
 PS C:\whatever\python\nester> python setup.py sdist
@@ -148,12 +151,12 @@ PS C:\> python
 >>> import nester   #正常导入未报错
 ```
 
-- 实例2
+- 示例2
 
 ```python
 PS C:\whatever\python\nester> python setup.py sdist
 PS C:\whatever\python\nester> python
->>> import nester   #正常导入未报错，因为此时是在模块所在目录下运行python，但局限性很大
+>>> import nester   #正常导入未报错，因为此时是在模块所在目录下运行python，但它很‘脆弱’
 ```
 
 - 本地副本的路径与卸载
@@ -161,7 +164,7 @@ PS C:\whatever\python\nester> python
 副本安装路径为Lib\site-packages，如需卸载可直接删除。
 包含了三个文件：nester.py；nester.pyc；nester-1.0.0-py2.7.egg-info。
 
-### 发布文件目录解析
+## 发布文件目录解析
 
 ```python
 #安装前
@@ -182,7 +185,7 @@ PS C:\whatever\python\nester> python
     -setup.py
 ```
 
-### 模块的导入和使用
+## 模块的导入和使用
 
 ```python
 >>> movies = ['the holy grail',1975,['graham chapman',['maichael palin','john cleese','terry jones']]]
@@ -195,7 +198,8 @@ maichael palin
 john cleese
 terry jones
 ```
-### 在python shell中打开模块文件
+
+## 在python shell中打开模块文件
 
 ```python
 #导入 C:\whatever\python\nester\nester.py 文件
@@ -210,7 +214,7 @@ import nester
 - 使用一个普通的import语句时，如import nester，这会指示Python解释器允许你使用命名空间限定访问nester函数。不过还可以更为特定，如使用from nester import print_list_item，会把指定的函数增加到当前命名空间中，此时需要注意是否存在同名冲突。
 
 
-### 模块文件编码报错
+## 模块文件编码报错
 
 在编写Python时，当使用中文输出或注释时运行脚本，会提示错误信息：
 SyntaxError: Non-ASCII character '\xe5' in file *******
@@ -219,4 +223,97 @@ SyntaxError: Non-ASCII character '\xe5' in file *******
 
 ```python
 # -*- coding: UTF-8 -*- 或者  #coding=utf-8
+```
+
+# 文件与异常
+
+## 文件操作示例
+
+- 待读取文件：dialogue.txt
+
+```python
+Tom: Hi, Jack, I will hold a party at my house next Monday. Would you like to come?
+Jack: Of course! I'd like to. 
+Tom: Great! I am happy to hear that. You can take a friend with you. 
+Jack: OK. Well, what's the theme of the party?
+Tom: It's a dancing party. So you can show us your dancing skills that night.
+Jack: Wow, sounds interesting!
+Tom: I'm glad you like it. So let's meet each other next Monday. 
+Jack: Hold on! Jim , you haven't told me when it starts yet.  
+Tom: Oh, I'm sorry.The party will start at 8：00.
+Jack: Well. See you then.
+```
+
+- 读取脚本：readfile.py
+
+```python
+# -*- coding: UTF-8 -*-
+from __future__ import print_function   #python3之前的版本无法使用print('hello',end='')
+import os
+try:
+    data = open('dialogue.txt')
+    for each_line in data: 
+        try:
+            (role,line_spoken)=each_line.split(':',1)   #1、多重赋值；2、split()第二个参数为可选参数，默认是寻找最多的可能性
+            print(role,end=':\n')
+            print(line_spoken,end='')
+        except ValueError:  #数据不符合期望的格式会出现ValueError
+            pass    #pass语句是Python的空语句或null语句，它什么也不做
+    data.close()
+except IOError: #数据无法正常访问时会出现IOError
+    print('the data file is missing!')
+```
+
+- 执行结果
+
+```python
+PS C:\whatever\python\test> python readfile.py
+Tom:
+ Hi, Jack, I will hold a party at my house next Monday. Would you like to come?
+Jack:
+ Of course! I'd like to.
+Tom:
+ Great! I am happy to hear that. You can take a friend with you.
+Jack:
+ OK. Well, what's the theme of the party?
+Tom:
+ It's a dancing party. So you can show us your dancing skills that night.
+Jack:
+ Wow, sounds interesting!
+Tom:
+ I'm glad you like it. So let's meet each other next Monday.
+Jack:
+ Hold on! Jim , you haven't told me when it starts yet.
+Tom:
+ Oh, I'm sorry.The party will start at 8：00.
+Jack:
+ Well. See you then.
+```
+
+## 文件操作常用命令
+
+os.getcwd()     #获取当前目录
+os.chdir()   #修改当前目录
+os.path
+data = open(filename) 
+data.readline()
+data.seek()     #跳至文件的第n个位置，常用seek()跳至起始位置
+data.close
+
+- 示例代码
+
+```python
+>>> import os
+>>> os.getcwd()  
+'C:\\Users\\hamrf'  
+>>> os.chdir('c:/')  
+>>> os.getcwd()
+'c:\\'
+>>> data = open('dialogue.txt')
+>>> print data.readline()
+Tom: Hi, Jack, I will hold a party at my house next Monday. Would you like to come?
+>>> data.seek(2)    
+>>> print data.readline()
+m: Hi, Jack, I will hold a party at my house next Monday. Would you like to come?
+>>> data.close()
 ```
