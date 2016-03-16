@@ -1,8 +1,9 @@
-<div class="col-box">
+<div class="col-box" style="text-align:center">
 <h4 style="font-size: 16px;font-weight: bold;color: #424242;">Aboutme</h4>
   <img class="avatar" src="{{ site.avatar }}" alt="{{ site.author }}">
-  <p>{{ site.profile }}</p>
-  <p class="contactme">
+  <div style="height:20px;"></div>
+  <p style="text-align:left">{{ site.profile }}</p>
+  <p class="contactme" style="text-align:left">
   You can contact me via:
     {% if site.email %}
     <a href="mailto:{{ site.email }}">Email</a>/

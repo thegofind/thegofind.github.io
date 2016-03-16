@@ -7,7 +7,7 @@ permalink: /archivers/reading-notes-python
 ---
 本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
 
-## 列表List
+# 列表List
 
 list是一个可变的有序表，其中可以存储任意类型的数据（包括混合类型），可称之为‘打了激素的数组’。
 
@@ -60,37 +60,35 @@ fav_movies = ['the holy grail','the life of brian']
 
 # 构建发布
 
-##准备文件
+## 准备文件
 
-nester.py
+- nester.py
 
 ```python
 # -*- coding: UTF-8 -*- 
 def print_list_item(the_list):
-	for each_item in the_list:
-		if isinstance(each_item,list):
-			print_list_item(each_item)
-		else:
-			print(each_item)
+    for each_item in the_list:
+        if isinstance(each_item,list):
+            print_list_item(each_item)
+        else:
+            print(each_item)
 ```
 
-setup.py
+- setup.py
 
 ```python
 from distutils.core import setup
 
 setup(
-	name = 'nester',
-	version = '1.0.0',
-	py_modules = ['nester'],
-	author = 'thegofind',
-	author_email = '43659894@qq.com',
-	url = 'http://thegofind.github.io',
-	description = 'a simple printer of nested lists',
+    name = 'nester',
+    version = '1.0.0',
+    py_modules = ['nester'],
+    author = 'thegofind',
+    author_email = '43659894@qq.com',
+    url = 'http://thegofind.github.io',
+    description = 'a simple printer of nested lists',
 )
 ```
-
-## 构建发布
 
 ### 构建一个发布文件
 在nester.py（C:\whatever\python\nester\nester.py）所在目录下打开一个终端窗口，键入一行命令：python setup.py sdist
@@ -100,9 +98,7 @@ PS C:\whatever\python\nester> python setup.py sdist
 running sdist
 running check
 warning: sdist: manifest template 'MANIFEST.in' does not exist (using default file list)
-
 warning: sdist: standard file not found: should have one of README, README.txt
-
 writing manifest file 'MANIFEST'
 creating nester-1.0.0
 copying files to nester-1.0.0...
@@ -214,7 +210,7 @@ import nester
 - 使用一个普通的import语句时，如import nester，这会指示Python解释器允许你使用命名空间限定访问nester函数。不过还可以更为特定，如使用from nester import print_list_item，会把指定的函数增加到当前命名空间中，此时需要注意是否存在同名冲突。
 
 
-### 模块文件编码报错：
+### 模块文件编码报错
 
 在编写Python时，当使用中文输出或注释时运行脚本，会提示错误信息：
 SyntaxError: Non-ASCII character '\xe5' in file *******
