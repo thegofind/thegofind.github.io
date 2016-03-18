@@ -1,61 +1,11 @@
 ---
 layout: post
-title:  "Reading notes：Python"
-date:   2016-03-15 09:00:13
-categories: [Python, Reading notes]
-permalink: /archivers/reading-notes-python
+title:  "Reading：Python 发布、文件处理与异常"
+date:   2016-03-18 09:00:13
+categories: [Python, Reading]
+permalink: /archivers/reading-python-publish-file-exception
 ---
 本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
-
-# 列表List
-
-list是一个可变的有序表，其中可以存储任意类型的数据（包括混合类型），可称之为‘打了激素的数组’。
-
-cast = ['cleese','palin','jones','idle']
-
-- 长度
-
-```python
-    len(cast)
-```
-
-- 取值/修改
-
-```python
-    cast[1]
-    cast[-1]    
-    cast[1] = 'chapman'
-```
-
-- 插入
-
-```python   
-    cast.append('gilliam')
-    cast.insert(0,'chapman')
-    cast.extend(['gilliam','chapman']) #添加另一个列表
-```
-- 删除
-
-```python
-    cast.pop()      #会返回被删除的对象
-    cast.pop(1) 
-    cast.remove('chapman')
-```
-
-- 数据类型
-
-```python
-    h = ['Apple', 123, True]
-    n = ['python', 'java', ['asp', 'php'], 'scheme']  #长度为4，取'php'用n[2][1]
-```
-
-- 列表循环
-
-```python
-fav_movies = ['the holy grail','the life of brian']
-    for each_flick in fav_movers:
-        print(each_flick)
-```
 
 # 构建发布
 
@@ -68,11 +18,11 @@ fav_movies = ['the holy grail','the life of brian']
 ```python
 # -*- coding: UTF-8 -*- 
 def print_list_item(the_list):
-    for each_item in the_list:
-        if isinstance(each_item,list):
-            print_list_item(each_item)
-        else:
-            print(each_item)
+	for each_item in the_list:
+		if isinstance(each_item,list):
+			print_list_item(each_item)
+		else:
+			print(each_item)
 ```
 
 - setup.py
@@ -83,13 +33,13 @@ setup.py程序提供了模块的元数据，用来构建、安装和上传打包
 from distutils.core import setup
 
 setup(
-    name = 'nester',
-    version = '1.0.0',
-    py_modules = ['nester'],
-    author = 'thegofind',
-    author_email = '43659894@qq.com',
-    url = 'http://thegofind.github.io',
-    description = 'a simple printer of nested lists',
+	name = 'nester',
+	version = '1.0.0',
+	py_modules = ['nester'],
+	author = 'thegofind',
+	author_email = '43659894@qq.com',
+	url = 'http://thegofind.github.io',
+	description = 'a simple printer of nested lists',
 )
 ```
 
@@ -201,6 +151,8 @@ terry jones
 
 ## 在python shell中打开模块文件
 
+- 使用一个普通的import语句时，如import nester，这会指示Python解释器允许你使用命名空间限定访问nester函数。不过还可以更为特定，如使用from nester import print_list_item，会把指定的函数增加到当前命名空间中，此时需要注意是否存在同名冲突。
+
 ```python
 #导入 C:\whatever\python\nester\nester.py 文件
 #sys.path 命令可以查看Python模块在计算机上的位置
@@ -210,9 +162,6 @@ import sys
 sys.path.append("C:\\whatever\\python\\nester") 
 import nester 
 ```
-
-- 使用一个普通的import语句时，如import nester，这会指示Python解释器允许你使用命名空间限定访问nester函数。不过还可以更为特定，如使用from nester import print_list_item，会把指定的函数增加到当前命名空间中，此时需要注意是否存在同名冲突。
-
 
 ## 模块文件编码报错
 
@@ -225,7 +174,7 @@ SyntaxError: Non-ASCII character '\xe5' in file *******
 # -*- coding: UTF-8 -*- 或者  #coding=utf-8
 ```
 
-# 文件与异常
+# 文件处理
 
 ## 文件操作示例
 
@@ -248,20 +197,21 @@ Jack: Well. See you then.
 
 ```python
 # -*- coding: UTF-8 -*-
-from __future__ import print_function   #python3之前的版本无法使用print('hello',end='')
+from __future__ import print_function	#python3之前的版本无法使用print('hello',end='')
 import os
 try:
-    data = open('dialogue.txt')
-    for each_line in data: 
-        try:
-            (role,line_spoken)=each_line.split(':',1)   #1、多重赋值；2、split()第二个参数为可选参数，默认是寻找最多的可能性
-            print(role,end=':\n')
-            print(line_spoken,end='')
-        except ValueError:  #数据不符合期望的格式会出现ValueError
-            pass    #pass语句是Python的空语句或null语句，它什么也不做
-    data.close()
-except IOError: #数据无法正常访问时会出现IOError
-    print('the data file is missing!')
+	data = open('dialogue.txt')
+	for each_line in data: 
+		try:
+			(role,line_spoken)=each_line.split(':',1)	#1、多重赋值；2、split()第二个参数为可选参数，默认是寻找最多的可能性
+			print(role,end=':\n')
+			print(line_spoken,end='')
+		except ValueError:	#数据不符合期望的格式会出现ValueError
+			pass	#pass语句是Python的空语句或null语句，它什么也不做
+	    finally：
+			data.close()
+except IOError:	#数据无法正常访问时会出现IOError
+	print('the data file is missing!')
 ```
 
 - 执行结果
@@ -293,11 +243,21 @@ Jack:
 ## 文件操作常用命令
 
 os.getcwd()     #获取当前目录
+
 os.chdir()   #修改当前目录
+
 os.path
+
 data = open(filename) 
+
 data.readline()
+
 data.seek()     #跳至文件的第n个位置，常用seek()跳至起始位置
+
+data = open(filename,w+)
+
+print('hello world',file=data)  #将hello world写入文件中
+
 data.close
 
 - 示例代码
@@ -317,3 +277,18 @@ Tom: Hi, Jack, I will hold a party at my house next Monday. Would you like to co
 m: Hi, Jack, I will hold a party at my house next Monday. Would you like to come?
 >>> data.close()
 ```
+
+- locals
+
+data = open(filename) 
+if 'data' in locals() #locals()会返回当前作用域中定义的所有名的一个集合
+
+```python
+>>> locals()
+{'__builtins__': <module '__builtin__' (built-in)>, 'each_line': 'hello world', '__doc__': None, 'data': <closed file 'dialogue.txt', mode 'r' at 0x0000000003562D20>, '__name__': '__main__', '__package__': None, 'os': <module 'os' from 'C:\Users\hamrf\Anaconda2\lib\os.pyc'>, 'sayhi': 'hello world'}
+```
+
+
+
+# 异常处理
+
