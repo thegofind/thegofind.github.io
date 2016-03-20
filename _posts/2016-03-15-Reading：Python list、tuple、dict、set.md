@@ -7,6 +7,62 @@ permalink: /archivers/reading-python-list-tuple-dict-set
 ---
 本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
 
+# 序列
+
+## 操作符
+
+- 连接操作符
+
+连接操作符的性能优化
+
+```python
+>>> sayhi = 'hello '+'world '+'!'	#Python必须为每一个参加连接操作的字符串分配新的内存，包括新产生的字符串
+>>> sayhi
+'hello world !'
+>>> sayhi = ''.join(['hello ','world ','!'])	#将子字符串放到一个可迭代的对象中(列表、元组等)
+>>> sayhi
+'hello world !'
+>>> list1 = [1,2,3]
+>>> list2 = [4,5,6]
+>>> print(list1+list2)
+[1, 2, 3, 4, 5, 6]
+>>> list1.extend(list2)		#类似地，列表的合并推荐使用extend()
+>>> print(list1)
+[1, 2, 3, 4, 5, 6]
+```
+
+## 格式化操作符
+
+```python
+>>> print('hi %s,welcome!'%('chen'))	#优先使用str()函数进行字符串转换
+hi chen,welcome!
+```
+
+##字符串
+
+Pyhon里没有字符这个类型，而是用长度为1的字符串来表示这个概念。
+
+字符串是一个不可变数据类型
+
+```python
+>>> s = 'hello'
+>>> s[1]='i'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object does not support item assignment
+```
+
+## 字符串内建方法
+
+```python
+>>> 'helloworld'.count('o')		#string.count(str,beg=0,end=len(string))，返回计数
+2
+>>> 'helloworld'.find('o')	#string.find(str,beg=0,end=len(string)),返回索引值
+4
+>>> 'helloworld'.split('o')	#string.split(str,num=string.count(str))，默认分隔个数为全部，返回list
+['hell', 'w', 'rld']
+```
+
 # 列表List
 
 list是一个可变的**有序**表，其中可以存储**任意类型的数据**（包括混合类型），可称之为‘打了激素的数组’。
@@ -76,6 +132,13 @@ fav_movies = ['the holy grail','the life of brian']
 ['L', 'K', 'C']
 >>> list[0:-1:3]
 ['L', 'W']
+>>> str1 = '1234567890'
+>>> str1[::-1]	#翻转
+'0987654321'
+>>> str1[::-2]	#翻转后，step为2
+'08642'
+>>> str1[-100:100]	#越界不报错
+'1234567890'
 ```
 
 ## 列表循环
@@ -92,6 +155,13 @@ PS C:\whatever\python> python test.py
 7
 10
 13
+
+#若range前两个参数为递增/递减，则第三个参数必为正/负
+#range(-1,-5,-1) 正确：-1,-2,-3,-4
+#range(-1,-5,1) 错误
+#range(-5,-1,1)	正确 -5,-4,-3,-2
+#range(1,5,1) 正确 1,2,3,4
+
 ```
 
 ## 列表注意事项

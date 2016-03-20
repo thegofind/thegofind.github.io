@@ -11,81 +11,6 @@ permalink: /archivers/reading-python-fundament
 
 - Python是严格区分大小写的
 
-## Built-in functions
-
-### print
-
-```python
->>> print(5+3)
-8
->>> 5+3
-8
->>> print('hello '+'world')
-hello world
->>> print('300+200=',300+200)   #逗号隔开的内容会被拼接起来，并间隔一个空格
-300+200= 500
->>> print('hello world ' * 2)
-hello world hello world
->>> print('hello world\n' + 2)
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-TypeError: cannot concatenate 'str' and 'int' objects
-```
-
-## Python shell 命令
-
-- dir(______builtins______)
-
-```python
-# BIF：built-in functions 内置函数有自己的命名空间，名为__builtins__
-# dir(__builtins__) 查看Python内置函数BIF 
-# help(input) 查看函数说明
-
->>> dir(__builtins__)	#为了节省空间，以下BIF经过大量删减
-['ArithmeticError', 'AssertionError','_', '__build_class__', '__debug__', '__doc__', '__import__', '__loader__', '__name__', '__package__', '__spec__', 'abs','set', 'setattr', 'slice', 'sorted', 'staticmethod', 'str', 'sum', 'super', 'tuple', 'type', 'vars', 'zip']
->>> import nester
->>> dir(nester)	   #查看模块nester的内置函数
-['__doc__', '__loader__', '__name__', '__package__', '__path__', '__spec__']
->>> nester.__path__
-_NamespacePath(['C:\\whatever\\python\\nester'])
->>> dir(str)	#查看字符串的内置函数，为了节省空间，以下内容经过大量删减
-['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getnewargs__', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
-```
-
-- help()
-
-```python
->>> sayhi = 'hello world'
->>> help(sayhi.split)	#如需查询字符串的某个内置函数，可以先创建一个字符串
-Help on built-in function split:
-
-split(...)
-    S.split([sep [,maxsplit]]) -> list of strings
-
-    Return a list of the words in the string S, using sep as the
-    delimiter string.  If maxsplit is given, at most maxsplit
-    splits are done. If sep is not specified or is None, any
-    whitespace string is a separator and empty strings are removed
-    from the result.
-```
-
-- module.__doc__
-
-```python
->>> import sys
->>> print(sys.__doc__)	#查看sys模块的模块文档（功能和变量含义）
-This module provides access to some objects used or maintained by the
-interpreter and to functions that interact strongly with the interpreter.
-
-Dynamic objects:	#为节省空间，此文档经大量删减
-
-argv -- command line arguments; argv[0] is the script pathname if known
-path -- module search path; path[0] is the script directory, else ''
-modules -- dictionary of loaded modules
-```
-
-## 数据类型
-
 ### 变量
 
 变量本身类型不固定的语言称之为动态语言，与之对应的是静态语言。
@@ -168,6 +93,10 @@ Unicode最常用的是用两个字节表示一个字符（如果要用到非常�
 如果你写的文本基本上全部是英文的话，用Unicode编码比ASCII编码需要多一倍的存储空间，在存储和传输上就十分不划算。
 
 Unicode编码转化为“可变长编码”的UTF-8编码。UTF-8编码把一个Unicode字符根据不同的数字大小编码成1-6个字节，常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。如果你要传输的文本包含大量英文字符，用UTF-8编码就能节省空间。
+
+- UTF-16
+
+从技术上讲，UTF-16也是一种变长编码，但由于UTF-16不向后兼容ASCII，因此，实际使用它的程序很少。
 
 ### 计算机系统通用的字符编码工作方式
 

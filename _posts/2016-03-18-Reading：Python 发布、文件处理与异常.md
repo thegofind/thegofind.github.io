@@ -149,9 +149,9 @@ john cleese
 terry jones
 ```
 
-## 在python shell中打开模块文件
+## 在python shell中载入模块文件
 
-- 使用一个普通的import语句时，如import nester，这会指示Python解释器允许你使用命名空间限定访问nester函数。不过还可以更为特定，如使用from nester import print_list_item，会把指定的函数增加到当前命名空间中，此时需要注意是否存在同名冲突。
+- 使用一个普通的import语句时，如import nester，这会指示Python解释器允许你使用命名空间限定访问nester函数。不过还可以更为特定，如使用from nester import print_list_item，会把指定的函数增加到当前命名空间中，此时需要注意是否存在**同名冲突**。
 
 ```python
 #导入 C:\whatever\python\nester\nester.py 文件
@@ -161,9 +161,41 @@ terry jones
 import sys
 sys.path.append("C:\\whatever\\python\\nester") 
 import nester 
+>>> list = ['a','b',['c','d','e',['f','g'],'h']]
+>>> nester.print_list_item(list)	#因import nester时未指定函数，因此此处前缀nester为必须
+a
+b
+c
+d
+e
+f
+g
+h
 ```
 
-## 模块文件编码报错
+# 模块文件
+
+## 模块的加载
+
+绝大部分的模块创建的目的是为了被别人调用而不是作为独立执行的脚本。
+
+最外层代码（全局代码，没有缩进的代码行）——在模块没有被导入时就会被执行，不管是否真的需要执行。因此，比较安全的写代码方式就是除了真正需要执行的代码外，几乎所有的功能代码都在函数中。通常只主体程序模块中有大量的顶级可执行代码。
+
+```python
+#如果模块/类是被导入，__name__的值为模块/类名称
+#如果模块是被直接执行，__name__的值为'__main__'
+
+if __name__ == "__main__":
+    代码块	#当此模块为主体程序时，才执行此处代码。
+```
+
+## 模块的测试
+
+测试代码仅当该文件被直接执行时运行，因此可以利用\_\_name\_\_这个变量，将测试代码放入一个函数中，如果该是被当成脚本运行，则调用这个函数。
+
+每次代码更新都运行这些测试代码，以确认修改没有引发新问题。
+
+## 模块文件编码问题
 
 在编写Python时，当使用中文输出或注释时运行脚本，会提示错误信息：
 SyntaxError: Non-ASCII character '\xe5' in file *******
@@ -291,4 +323,3 @@ if 'data' in locals() #locals()会返回当前作用域中定义的所有名的�
 
 
 # 异常处理
-
