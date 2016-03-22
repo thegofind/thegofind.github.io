@@ -63,7 +63,7 @@ TypeError: 'str' object does not support item assignment
 ['hell', 'w', 'rld']
 ```
 
-# 列表List
+# 列表 List
 
 list是一个可变的**有序**表，其中可以存储**任意类型的数据**（包括混合类型），可称之为‘打了激素的数组’。
 
@@ -74,38 +74,46 @@ cast = ['cleese','palin','jones','idle']
 - 长度
 
 ```python
-    len(cast)
+len(cast)
 ```
 
 - 取值/修改
 
 ```python
-    cast[1]
-    cast[-1]    
-    cast[1] = 'chapman'
+cast[1]
+cast[-1]    
+cast[1] = 'chapman'
 ```
 
 - 插入
 
 ```python
-    cast.append('gilliam')
-    cast.insert(0,'chapman')
-    cast.extend(['gilliam','chapman']) #添加另一个列表
+cast.append('gilliam')
+cast.insert(0,'chapman')
+cast.extend(['gilliam','chapman']) #添加另一个列表
+
+#测试
+>>> list1 = [1,2,3]
+>>> list1.extend(('hello','world')) #同样可以添加元组
+>>> list1
+[1, 2, 3, 'hello', 'world']
 ```
 
 - 删除
 
 ```python
-    cast.pop()      #会返回被删除的对象
-    cast.pop(1) 
-    cast.remove('chapman')
+cast.pop()      #会返回被删除的对象
+cast.pop(1) 	#可以指定索引位置
+cast.remove('chapman')
+del mylist	#删除一个列表
+del mylist[1]	#删除列表索引为1的元素
 ```
 
 - 数据类型
 
 ```python
-    h = ['Apple', 123, True]
-    n = ['python', 'java', ['asp', 'php'], 'scheme']  #长度为4，取'php'用n[2][1]
+h = ['Apple', 123, True]
+n = ['python', 'java', ['asp', 'php'], 'scheme']  #长度为4，取'php'用n[2][1]
 ```
 
 - 列表循环
@@ -166,8 +174,23 @@ PS C:\whatever\python> python test.py
 
 ## 列表注意事项
 
+- 列表是可变数据类型
 
-# 元组tuple
+```python
+>>> list1 = [1,2,3]
+>>> list2 = [1,2,3]
+>>> id(list1)
+2051551280968
+>>> id(list2)	#列表是可变数据类型
+2051551280200
+>>> id(list1[1])
+1739517776
+>>> id(list2[1])	#整型是不可变数据类型
+1739517776
+```
+
+
+# 元组 tuple
 
 tuple和list非常类似，但是tuple一旦初始化就不能修改，它也没有append()，insert()这样的方法。获取元素的方法和list是一样的，但不能赋值成另外的元素。
 
@@ -188,6 +211,16 @@ TypeError: 'int' object is not subscriptable
 1
 ```
 
+- tuple的关键不在于(),而在于,
+
+```python
+>>> tuple1 = 1,2,3
+>>> tuple1
+(1, 2, 3)
+>>> type(tuple1)
+<class 'tuple'>
+```
+
 - 混合类型数据
 
 ```python
@@ -204,9 +237,33 @@ TypeError: 'int' object is not subscriptable
 
 表面上看，tuple的元素确实变了，但其实变的不是tuple的元素，而是list的元素。tuple一开始指向的list并没有改成别的list，所以，tuple所谓的“不变”是说，tuple的每个元素，指向永远不变。即指向'a'，就不能改成指向'b'，指向一个list，就不能改成指向其他对象，但指向的这个list本身是可变的！
 
-# 字典dict
+# 字典 dict
 
 dict全称dictionary，在其他语言中也称为map，使用键-值（key-value）存储，具有极快的查找速度。**特点：查找速度快、无序、key不可变。**
+
+## 字典创建
+
+```python
+>>> dict1 = dict({('a',1),('b',2),('c',3)})	#dict()内可以是列表或元组
+>>> dict1
+{'c': 3, 'b': 2, 'a': 1}
+>>> dict2 = dict(a='first',b='second',c='third')
+>>> dict2
+{'c': 'third', 'b': 'second', 'a': 'first'}
+>>> dict3 = {}
+>>> dict3.fromkeys((1,2,3))	#使用fromkeys()之前需要定义dict3
+{1: None, 2: None, 3: None}
+>>> dict3.fromkeys((1,2,3),'hello')
+{1: 'hello', 2: 'hello', 3: 'hello'}
+>>> dict3.fromkeys((1,2,3),('hello','world'))
+{1: ('hello', 'world'), 2: ('hello', 'world'), 3: ('hello', 'world')}
+>>> dict3
+{}
+>>> dict3 = dict3.fromkeys((1,2,3),('hello','world'))
+>>> dict3
+{1: ('hello', 'world'), 2: ('hello', 'world'), 3: ('hello', 'world')}
+
+```
 
 ## 字典操作
 
@@ -230,6 +287,50 @@ dict全称dictionary，在其他语言中也称为map，使用键-值（key-valu
 >>> d = {'a':1,'b':2,'c':3,'a':4}   #等同于对同一key多次赋值，取最后一次赋值
 >>> d   
 {'a': 4, 'c': 3, 'b': 2}
+```
+
+## 字典循环
+
+```python
+>>> dict1 = {}
+>>> dict1 = dict1.fromkeys(range(6),'hello')
+>>> for eachkey in dict1.keys():
+...     print(eachkey)
+...
+0
+1
+2
+>>> for eachvalue in dict1.values():
+...     print(eachvalue)
+...
+hello
+hello
+hello
+>>> for eachitem in dict1.items():
+...     print(eachitem)
+...
+(0, 'hello')
+(1, 'hello')
+(2, 'hello')
+```
+
+## 浅拷贝
+
+```python
+>>> a = {'a':1,'b':2,'c':3}
+>>> b = a
+>>> c = a.copy()	#浅拷贝，相当于重新创建一个字典
+>>> id(a)
+2545670190280
+>>> id(b)
+2545670190280
+>>> id(c)
+2545670190472
+>>> a['d'] = 4
+>>> b
+{'a': 1, 'b': 2, 'c': 3, 'd': 4}
+>>> c
+{'a': 1, 'b': 2, 'c': 3}
 ```
 
 ## 字典注意事项
@@ -264,9 +365,9 @@ None
 {'Bob': 75, 'Tracy': 85, 'Michael': 95}
 ```
 
-# set
+# 集合 set
 
-set的内部结构和dict很像，唯一区别是不存储value。set的元素**不重复**，而且是**无序**的，且是**不可变**的。
+set的内部结构和dict很像，唯一区别是不存储value。set的元素**不重复**，而且是**无序**的。
 
 ## set操作
 
@@ -282,6 +383,23 @@ set的内部结构和dict很像，唯一区别是不存储value。set的元素**
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 KeyError: 'e'
+>>> id(s)
+2545670177288
+>>> s.add('c')	#添加元素
+>>> id(s)
+2545670177288
+```
+
+## 不可变集合
+
+```python
+>>> s = frozenset([1,2,3])
+>>> s
+frozenset({1, 2, 3})
+>>> s.add(4)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'frozenset' object has no attribute 'add'
 ```
 
 ## set注意事项
@@ -327,13 +445,84 @@ if 'MON' in weekdays:   #查找某元素是否存在于该set
 查找和插入的时间随着元素的增加而增加；
 占用空间小，浪费内存很少。
 
+#三元表达式
+
+```python
+>>> x=1
+>>> y=2
+>>> num = x if x<y else y
+>>> num
+1
+```
+
+#断言assert
+
+```python
+>>> assert 3>4
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AssertionError
+```
+
 # 条件判断
 
 # 循环
 
 ## for循环
 
-- range()
+# 递归
+
+- 斐波那契数列
+
+斐波那契数列又称黄金分割数列、因数学家列昂纳多·斐波那契（Leonardoda Fibonacci ）以兔子繁殖为例子而引入，故又称为“兔子数列”（一个数总是等于前两个数字之和）。
+
+```python
+#斐波那契数列：1、1、2、3、5、8、13、21、34
+def fibonacci(num):
+	if num in (1,2):
+		return 1
+	else:
+		return fibonacci(num-1)+fibonacci(num-2)
+
+print(fibonacci(7))
+
+#输出13
+```
+
+#break和continue
+
+- break 跳出循环体
+
+```python
+for each in range(1,6):
+	if each%3 == 0:
+		print('第一个能被3整除的数已找到：'+str(each))
+		break
+	print(str(each)+'不可以被3整除')
+    
+1不可以被3整除
+2不可以被3整除
+第一个能被3整除的数已找到：3
+```
+
+- continue 终止本轮循环，开始下一轮循环
+
+```python
+for each in range(6):
+	if each%2 == 0:
+		print(each)
+		continue
+	print('这是一个奇数')
+
+0
+这是一个奇数
+2
+这是一个奇数
+4
+这是一个奇数
+```
+
+
 
 ## while循环
 

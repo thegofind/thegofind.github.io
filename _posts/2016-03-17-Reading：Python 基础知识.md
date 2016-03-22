@@ -5,6 +5,8 @@ date:   2016-03-17 09:00:13
 categories: [Python, Reading]
 permalink: /archivers/reading-python-fundament
 ---
+本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
+
 # Python基础知识
 
 ##	Python简介

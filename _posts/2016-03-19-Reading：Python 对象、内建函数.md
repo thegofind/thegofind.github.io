@@ -5,6 +5,7 @@ date:   2016-03-19 09:00:13
 categories: [Python, Reading]
 permalink: /archivers/reading-python-fundame
 ---
+本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
 
 # 内建函数BIF
 
@@ -240,55 +241,6 @@ True
 
 
 
-# 性能优化
-
-- 字符串的连接，使用join代替+
-
-```python
->>> sayhi = 'hello '+'world '+'!'	#Python必须为每一个参加连接操作的字符串分配新的内存，包括新产生的字符串
->>> sayhi
-'hello world !'
->>> sayhi = ''.join(['hello ','world ','!'])	#将子字符串放到一个可迭代的对象中(列表、元组等)
->>> sayhi
-'hello world !'
-```
-
-- 列表的合并，使用extend()代替+
-
-```python
->>> list1 = [1,2,3]
->>> list2 = [4,5,6]
->>> print(list1+list2)
-[1, 2, 3, 4, 5, 6]
->>> list1.extend(list2)		#类似地，列表的合并推荐使用extend()
->>> print(list1)
-[1, 2, 3, 4, 5, 6]
-```
-
-- 循环的性能优化
-
-```python
-#优化前
-while i < len(myString)
-
-#优化后
-length = len(myString)
-while i < length
-
-#优化前
-if each_item in alphas + nums:
-
-#优化后
-alphnums = alphas + nums
-if each_item in alphnums:
-```
-
-
-
-
-
-
-
 
 
 类似os.linesep这样的名字需要解释器做两次查询（1）查找os以确认是一个模块，（2）在这个模块中查找linesep变量。如果在一个函数中频繁使用一个属性，建议为该属性取一个本地变量别名。
@@ -308,7 +260,202 @@ if each_item in alphnums:
 2160034387536
 ```
 
+```python
+>>> list1 = [7,4,6,3,2,9]
+>>> list1.sort()
+>>> list1
+[2, 3, 4, 6, 7, 9]
+>>> list1 = [7,4,6,3,2,9]
+>>> list1.sort(reverse=True)
+>>> list1
+[9, 7, 6, 4, 3, 2]
+```
 
 
 
+```python
+>>> list1 = [0,1,2,3]	#向列表中添加单个元素，不更改列表id
+>>> id(list1)
+1425338695944
+>>> list1.append(4)
+>>> list1
+[0, 1, 2, 3, 4]
+>>> id(list1)
+1425338695944
+
+>>> list1 = [3,2,1,0]	#对列表进行sort(),reverse()不会更改列表id
+>>> id(list1)
+1425338678984
+>>> list1.sort()
+>>> list1
+[0, 1, 2, 3]
+>>> id(list1)
+1425338678984
+
+>>> list1 = [3,2,1,0]
+>>> list2 = list1	#引用列表
+>>> list3 = list1[:]	#拷贝并创建了一个新的列表
+>>> id(list1)
+1425338678920
+>>> id(list2)
+1425338678920
+>>> id(list3)
+1425338678984
+>>> list1.sort()
+>>> list2
+[0, 1, 2, 3]
+>>> list3
+[3, 2, 1, 0]
+
+>>> list1 = [1,2,3]
+>>> list2 = [4,5,6]
+>>> id(list1)
+1425338678344
+>>> id(list2)
+1425338695944
+>>> list1 =  list1 + list2	#使用+进行列表的合并，会重新分配一个内存
+>>> list1
+[1, 2, 3, 4, 5, 6]
+>>> id(list1)
+1425338678920
+>>> list2.extend([7,8,9])	#使用extend进行列表的合并，无需重新分配一个内存
+>>> list2
+[4, 5, 6, 7, 8, 9]
+>>> id(list2)
+1425338695944
+```
+
+
+
+
+
+# 函数
+
+- 形参、实参
+- 函数文档 functionName.\_\_doc\_\_;help(functionName)
+- 关键字参数、默认参数、收集参数
+- 函数和过程
+
+过程是指没有返回值的函数，但在python中没有过程，因为所有的函数返回的是None
+
+```python
+>>> def sayhi():\
+... print('hello world')
+...
+>>> say = sayhi()
+hello world
+>>> print(say)
+None
+```
+
+- 全局变量
+
+```python
+>>> num = 5
+>>> def changeNum():
+...     num = 10	#在函数中修改全局变量，运行机制是在拷贝为一个局部变量
+...
+>>> changeNum()
+>>> num
+5
+>>> def changeNum():
+...     global num	#如果想在函数中，修改全局变量，可以使用global，慎用！
+...     num = 10
+...
+>>> changeNum()
+>>> num
+10
+```
+
+- 内部函数
+
+```python
+>>> def fun1():
+...     print('fun1()正在被调用')
+...     def fun2():
+...             print('fun2()正在被调用')
+...     fun2()
+...     def fun3():
+...             print('fun3()正在被调用')
+...
+>>> fun1()
+fun1()正在被调用
+fun2()正在被调用
+```
+
+- 闭包
+
+```python
+>>> def fun1():
+...     x = 5
+...     def fun2():	#python会导入全部的闭包函数体fun2()来分析其的局部变量
+...             x *= x	#python规则指定所有在赋值语句左面的变量都是局部变量
+...             return x	#在闭包fun2()中，变量x被认为是fun2()中的局部变量
+...     return fun2()	
+...
+>>> fun1()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 6, in fun1
+  File "<stdin>", line 4, in fun2
+UnboundLocalError: local variable 'x' referenced before assignment
+>>> def fun1():
+...     x = 5
+...     def fun2():
+...             nonlocal x	#指明变量不是局部变量
+...             x *= x
+...             return x
+...     return fun2()
+...
+>>> fun1()
+25
+>>>
+```
+
+- lambda 匿名函数
+
+```python
+>>> g = lambda x,y : x+y
+>>> g(3,4)
+7
+
+>>> f = lambda x : x%2 == 0	#这里是判断x%2 == 0，并不是
+>>> f(0)
+True
+>>> f(1)
+False
+```
+
+- filter
+
+```python
+>>> def even(num):
+...     if num%2 == 0:
+...             return num
+...     else:	#这里的else可以不写，因为Python默认返回的是None，在filter()中表示False
+...             return False
+...
+>>> filter(even,[2,5,7,4,0])	#这里使用的是even，而不是even(),因even()是需要参数的
+<filter object at 0x0000014BDCCE5A20>	#filter()函数返回的是一个Iterator，也就是一个惰性序列，所以需要用list()函数强迫filter()完成计算结果。
+>>> list(filter(even,[2,5,7,4,0]))	#这里的第一个参数可以为None，过滤序列中非True值
+[2, 4]	#这里有一个问题是：没有显示0，因为bool(0)为False
+>>> list(filter(None,range(10)))
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> list(filter(lambda x : x%2 == 0,range(10)))
+[0, 2, 4, 6, 8]
+>>> def even(num):
+...     return(num%2 == 0)
+...
+>>> list(filter(even,range(10)))
+[0, 2, 4, 6, 8]
+>>> even(0)
+True
+```
+
+- map
+
+```python
+>>> list(map(lambda x : x*2,range(5)))
+[0, 2, 4, 6, 8]
+```
 

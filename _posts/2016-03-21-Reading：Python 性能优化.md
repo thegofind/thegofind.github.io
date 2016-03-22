@@ -1,0 +1,86 @@
+---
+layout: post
+title:  "Reading：Python 性能优化"
+date:   2016-03-21 09:00:13
+categories: [Python, Reading]
+permalink: /archivers/reading-python-performance
+---
+本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
+
+# 性能优化
+
+- 字符串的连接，使用join代替+
+
+```python
+>>> sayhi = 'hello '+'world '+'!'	#Python必须为每一个参加连接操作的字符串分配新的内存，包括新产生的字符串
+>>> sayhi
+'hello world !'
+>>> sayhi = ''.join(['hello ','world ','!'])	#将子字符串放到一个可迭代的对象中(列表、元组等)
+>>> sayhi
+'hello world !'
+```
+
+- 列表的合并，使用extend()代替+
+
+```python
+>>> list1 = [1,2,3]
+>>> list2 = [4,5,6]
+>>> id(list1)
+1425338678344
+>>> id(list2)
+1425338695944
+>>> list1 =  list1 + list2	#使用+进行列表的合并，会重新分配一个内存
+>>> list1
+[1, 2, 3, 4, 5, 6]
+>>> id(list1)
+1425338678920
+>>> list2.extend([7,8,9])	#使用extend进行列表的合并，无需重新分配一个内存
+>>> list2
+[4, 5, 6, 7, 8, 9]
+>>> id(list2)
+1425338695944
+```
+
+- 循环的性能优化
+
+```python
+#优化前
+while i < len(myString)
+
+#优化后
+length = len(myString)
+while i < length
+
+#优化前
+if each_item in alphas + nums:
+
+#优化后
+alphnums = alphas + nums
+if each_item in alphnums:
+```
+
+
+
+
+
+
+
+
+
+类似os.linesep这样的名字需要解释器做两次查询（1）查找os以确认是一个模块，（2）在这个模块中查找linesep变量。如果在一个函数中频繁使用一个属性，建议为该属性取一个本地变量别名。
+
+```python
+>>> str1 = 'hello'
+>>> str2 = 'world'
+>>> str3 = str1 +str2
+>>> str4 = 'hello' + 'world'
+>>> id(str3)
+2160033895024
+>>> id(str4)
+2160033897648
+>>> id('hello')
+2160034387536
+>>> id(str1)
+2160034387536
+```
+

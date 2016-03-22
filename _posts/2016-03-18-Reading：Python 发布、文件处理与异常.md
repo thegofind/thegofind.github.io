@@ -304,7 +304,7 @@ data.close
 >>> data = open('dialogue.txt')
 >>> print data.readline()
 Tom: Hi, Jack, I will hold a party at my house next Monday. Would you like to come?
->>> data.seek(2)    
+>>> data.seek(2)    #seek()第一个参数为偏移量，第二个参数为起始位置，默认为文章开头
 >>> print data.readline()
 m: Hi, Jack, I will hold a party at my house next Monday. Would you like to come?
 >>> data.close()
@@ -320,6 +320,14 @@ if 'data' in locals() #locals()会返回当前作用域中定义的所有名的�
 {'__builtins__': <module '__builtin__' (built-in)>, 'each_line': 'hello world', '__doc__': None, 'data': <closed file 'dialogue.txt', mode 'r' at 0x0000000003562D20>, '__name__': '__main__', '__package__': None, 'os': <module 'os' from 'C:\Users\hamrf\Anaconda2\lib\os.pyc'>, 'sayhi': 'hello world'}
 ```
 
+- close()
 
+文件在关闭之前一直是放在内存中的，关闭时才进行保存，因此要注意将文件关闭。
+
+```python
+>>> dialogue = open('C:\\whatever\\python\\test\\dialogue.txt')
+>>> dialogue
+<_io.TextIOWrapper name='C:\\whatever\\python\\test\\dialogue.txt' mode='r' encoding='cp936'>
+```
 
 # 异常处理
