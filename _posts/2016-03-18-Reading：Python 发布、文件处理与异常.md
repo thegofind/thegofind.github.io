@@ -208,7 +208,7 @@ SyntaxError: Non-ASCII character '\xe5' in file *******
 
 # 文件处理
 
-## 文件操作示例
+## 示例
 
 - 待读取文件：dialogue.txt
 
@@ -272,25 +272,31 @@ Jack:
  Well. See you then.
 ```
 
-## 文件操作常用命令
+## 常用命令
 
-os.getcwd()     #获取当前目录
+![](http://github.com/thegofind/thegofind.github.io/raw/master/img/00005.png)
 
-os.chdir()   #修改当前目录
+![](http://github.com/thegofind/thegofind.github.io/raw/master/img/00006.png)
 
-os.path
+- close()
 
-data = open(filename) 
+文件在关闭之前一直是放在内存中的，关闭时才进行保存，因此要注意将文件关闭。
 
-data.readline()
+```python
+>>> dialogue = open('C:\\whatever\\python\\test\\dialogue.txt')
+>>> dialogue
+<_io.TextIOWrapper name='C:\\whatever\\python\\test\\dialogue.txt' mode='r' encoding='cp936'>
+```
 
-data.seek()     #跳至文件的第n个位置，常用seek()跳至起始位置
+##  os模块
 
-data = open(filename,w+)
+- os模块中关于文件/目录常用的函数使用方法
 
-print('hello world',file=data)  #将hello world写入文件中
+![](http://github.com/thegofind/thegofind.github.io/raw/master/img/00011.png)
 
-data.close
+- os.path模块中关于路径常用的函数使用方法
+
+![](http://github.com/thegofind/thegofind.github.io/raw/master/img/00010.png)
 
 - 示例代码
 
@@ -320,14 +326,20 @@ if 'data' in locals() #locals()会返回当前作用域中定义的所有名的�
 {'__builtins__': <module '__builtin__' (built-in)>, 'each_line': 'hello world', '__doc__': None, 'data': <closed file 'dialogue.txt', mode 'r' at 0x0000000003562D20>, '__name__': '__main__', '__package__': None, 'os': <module 'os' from 'C:\Users\hamrf\Anaconda2\lib\os.pyc'>, 'sayhi': 'hello world'}
 ```
 
-- close()
-
-文件在关闭之前一直是放在内存中的，关闭时才进行保存，因此要注意将文件关闭。
+## pickle模块
 
 ```python
->>> dialogue = open('C:\\whatever\\python\\test\\dialogue.txt')
->>> dialogue
-<_io.TextIOWrapper name='C:\\whatever\\python\\test\\dialogue.txt' mode='r' encoding='cp936'>
+>>> import pickle
+>>> list1 = [1,2,3,'chen',['hao','ran']]
+>>> f = open('list1.pkl','wb')
+>>> pickle.dump(list1,f)	#将数据以二进制的形式写入文件中
+>>> f.close()
+
+>>> f = open('list1.pkl','rb')
+>>> mylist = pickle.load(f)	#从二进制的文件中读取原有数据
+>>> mylist
+[1, 2, 3, 'chen', ['hao', 'ran']]
+>>> f.close()
 ```
 
 # 异常处理
