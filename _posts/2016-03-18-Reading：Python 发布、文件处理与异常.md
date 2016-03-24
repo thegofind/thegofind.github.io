@@ -278,7 +278,7 @@ Jack:
 
 
 | **打开模式** | **执行操作**                |
-| :------- | :---------------------- |
+| -------- | ----------------------- |
 | 'r'      | 以只读方式打开文件（默认）           |
 | 'w'      | 以写入的方式打开文件，会覆盖已存在的文件    |
 | 'x'      | 如果文件已经存在，使用此模式打开将引发异常   |
@@ -287,6 +287,7 @@ Jack:
 | 't'      | 以文本模式打开（默认）             |
 | '+'      | 可读写模式（可添加到其他模式中使用）      |
 | 'U'      | 通用换行符支持                 |
+
 - 文件对象方法
 
 | **文件对象方法**                     | **执行操作**                                 |
@@ -439,3 +440,22 @@ if 'data' in locals() #locals()会返回当前作用域中定义的所有名的�
 | UnicodeTranslateError | Unicode转换时的错误（UnicodeError的子类）           |
 | ValueError            | 传入无效的参数                                  |
 | ZeroDivisionError     | 除数为零                                     |
+
+```python
+>>> assert 1<0	#断言，通常使用在程序测试阶段
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AssertionError
+>>> raise	
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+RuntimeError: No active exception to reraise
+>>> 1/0
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: division by zero
+>>> raise ZeroDivisionError('除数为0的异常')	#指定某种类型的异常
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: 除数为0的异常
+```
