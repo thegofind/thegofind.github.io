@@ -9,20 +9,32 @@ permalink: /archivers/reading-calculous-pre-knowledge
 
 # 极限和连续
 
-## 平均变化率
+## 变化率和极限
+
+### 平均变化率
 
 - 代数角度
 
-
-$$
-{\frac {\Delta y}{\Delta x}=\frac {f{({x_{2}})}-f{({x_{1}})}}{x_{2}-x_{1}}=\frac {f{({x_{1}+h})}-f{({x_{1}})}}{h}，h\not= 0}
-$$
-
+${\frac {\Delta y}{\Delta x}=\frac {f{({x_{2}})}-f{({x_{1}})}}{x_{2}-x_{1}}=\frac {f{({x_{1}+h})}-f{({x_{1}})}}{h}，h\not= 0}$
 
 - 几何角度
 
 几何上，平均变化率就是割线的斜率。
 
-## 瞬时变化率
+### 瞬时变化率
 
-瞬时变化率作为平均变化率的极限
+- 代数角度
+
+$\lim_{x\rightarrow {x}_{{0}}}{f\left({x}\right)}=L$
+
+- 几何角度
+
+几何上，瞬时变化率就是切线的斜率。
+
+### 极限
+
+- 极限可能不存在
+
+![](http://github.com/thegofind/thegofind.github.io/raw/master/img/00006.png)
+
+（a）函数跳跃	（b）函数无限增大	（c）函数无限震荡
