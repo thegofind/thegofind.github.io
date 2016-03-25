@@ -15,13 +15,10 @@ permalink: /archivers/reading-calculous-pre-knowledge
 
 
 $$
-\begin{align}
-	{\frac {\Delta y}{\Delta x}=\frac {f{({x_{2}})}-f{({x_{1}})}}{x_{2}-x_{1}}=\frac {f{({x_{1}+h})}-f{({x_{1}})}}{h}，h\not= 0}
-\end{align}
+{\frac {\Delta y}{\Delta x}=\frac {f{({x_{2}})}-f{({x_{1}})}}{x_{2}-x_{1}}=\frac {f{({x_{1}+h})}-f{({x_{1}})}}{h}，h\not= 0}
 $$
 
 
 - 几何角度
 
 几何上，平均变化率就是割线的斜率。
-
