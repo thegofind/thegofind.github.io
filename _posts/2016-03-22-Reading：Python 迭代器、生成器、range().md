@@ -7,7 +7,53 @@ permalink: /archivers/reading-python-range
 ---
 本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
 
-# range()
+# 条件和循环
+
+## if、else、ifelse
+
+## break、continue
+
+- 当遇到continue语句时，程序会终止当前循环，并忽略剩余的语句，然后回到循环的顶端。在开始下次迭代前，验证循环条件，验证成功才会开始下一次迭代。
+
+
+## while-else、for-else
+
+- 在循环中使用else时，else子句只在循环完成后执行，也就是说break语句也会跳过else块。
+
+## for
+
+for循环会访问一个可迭代对象（例如序列或是迭代器）中的所有元素，并在所有条目都处理过后结束循环。
+
+# 内建函数
+
+## sorted() 返回列表
+
+sorted(iterable,key=None, reverse=False])
+
+```python
+>>> dict1 = {'a':(1,6),'b':(2,5),'A':(3,4)}
+>>> sorted(dict1)	#等同于sorted(dict1.keys())
+['A', 'a', 'b']
+>>> sorted(dict1.values(),key = lambda x : x[0])	#这里匿名函数的作用是将每一个value作为一个序列进行索引取值
+[(1, 6), (2, 5), (3, 4)]
+>>> sorted(dict1.values(),key = lambda x : x[1])
+[(3, 4), (2, 5), (1, 6)]
+```
+
+## zip() 返回列表
+
+## reversed()	返回迭代器
+
+## enumerate() 返回迭代器
+
+```python
+>>> list1 = ['a','b','c']
+>>> dict(enumerate(list1))
+{0: 'a', 1: 'b', 2: 'c'}
+```
+
+
+## range()
 
 class range(stop)
 class range(start, stop[, step])
@@ -16,22 +62,20 @@ class range(start, stop[, step])
 
 若stop-start为负，即递减时，step必须同为负，否则序列为空。
 
-## range的 优势
+- range的 优势
 
 > The advantage of the [`range`](https://docs.python.org/3/library/stdtypes.html#range) type over a regular [`list`](https://docs.python.org/3/library/stdtypes.html#list) or [`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple) is that a [`range`](https://docs.python.org/3/library/stdtypes.html#range) object will always take the same (small) amount of memory, no matter the size of the range it represents (as it only stores the `start`, `stop` and `step` values, calculating individual items and subranges as needed).
 
 
 > 同list或tuple相比，range类型有一个优势：无论range包含的数据有多少，range总是只消耗很小、恒定的内存。（因为它只保存起始位置、终止位置和步数，根据需要单独计算每个元素。
-> ## 包容测试、 元素索引查找、 切片、迭代
+
+
+- 支持包容测试、 索引查找、 切片、迭代
 
 ```python
 >>> r = range(1,10,2)
->>> list(r)
-[1, 3, 5, 7, 9]
->>> 2 in r	#包容测试
-False
->>> 2 in r
-False
+>>> 1 in range(1,10,2)	#包容测试
+True
 >>> r.index(3)	#元素索引查找
 1
 >>> r[0:2]	#切片
@@ -42,7 +86,7 @@ range(1, 5, 2)
 9
 ```
 
-## == 和 !=
+- == 和 !=
 
 range()可以被当作序列，使用 == 和 != 进行比较，如果它们表示相同的值序列，则被视为相等。
 
@@ -53,97 +97,59 @@ True
 True
 ```
 
-# sorted()、reversed(0)
+# 迭代器
 
-sorted(iterable,key=None, reverse=False])
+迭代器对象有一个\_\_next\_\_()方法，而不是通过索引来计数，调用后返回下一个条目，所有条目迭代完成后，迭代器引发一个StopIteration异常告诉程序循环结束。for语句在内部调用_\_next\_\_()并捕获异常。
+
+迭代器的限制：无法向后移动，不能回到开始，每一个迭代器之间都是相互独立的。
+
+## 迭代器的特性
+
+- 文件对象生成的迭代器会自动调用readline()方法，这样就可以使用简单的for eachLine in f 替换 for eachLine in f.readline()。
+
+
+- 在迭代可变对象的时候修改它们并不是一个好主意，使用字典keys()方法时是可以的，因为keys()返回一个独立于字典的列表。
 
 ```python
->>> dict1 = {'a':(1,6),'b':(2,5),'A':(3,4)}
->>> sorted(dict1)	#等同于sorted(dict1.keys())
-['A', 'a', 'b']
->>> sorted(dict1.values(),key = lambda x : x[0])	#这里匿名函数的作用是将每一个value作为一个序列进行索引取值比较
-[(1, 6), (2, 5), (3, 4)]
->>> sorted(dict1.values(),key = lambda x : x[1])
-[(3, 4), (2, 5), (1, 6)]
+for eachURL in allURLs:
+    if not eachURL.startswith('http://'):
+        allURLs.remove(eachURL)
 ```
 
-sorted()和zip()返回一个序列（列表），reversed()和enumerate()返回迭代器（类似序列）。
+## 如何创建迭代器？
 
-# 函数何时有返回值？
+# 相关内容
 
-在使用可变对象的方法如sort()、extend()和reverse()的时候要注意，这些操作会在可变对象中原地执行操作，也就说现有的可变对象的数据会被改变，但是没有返回值。
+## 三元表达式
 
 ```python
->>> list1 = [1,2,3]
->>> list1.extend([4,5,6])
->>> list1
-[1, 2, 3, 4, 5, 6]
->>> list2 = list1.extend([4,5,6])	#list1.extend()未显式设置返回值，即默认返回None
->>> list2
->>> type(list2)
-<class 'NoneType'>
+>>> x=1
+>>> y=2
+>>> num = x if x<y else y
+>>> num
+1
 ```
 
-而不可变对象的方法是不能改变它们的值，所以它们必须返回一个新的对象。如果确实需要返回一个对象，可以使用如sorted()、reverse()等内建函数。
+## 列表解析
 
-# 深拷贝、浅拷贝
-
-浅拷贝：对不可变对象进行显式拷贝，并创建一个对象；对可变对象进行引用拷贝。
-
-浅拷贝包括：
-
-1、切片
-
-2、工厂函数（如list()、dict()等)
-
-3、copy模块的copy()函数
-
-4、list、dict、set的内建函数copy()
+列表解析的表达式可以取代内建的map()函数以及lambda，而且效率更高。
 
 ```python
->>> import copy
->>> list1 = ['name',['price',400]]
->>> list2 = list1[:]
->>> list3 = list(list1)
->>> list4 = copy.copy(list1)
->>> list5 = copy.deepcopy(list1)
->>> id(list1[1])	
-1439195035848
->>> id(list2[1])
-1439195035848
->>> id(list3[1])
-1439195035848
->>> id(list4[1])
-1439195035848
->>> id(list5[1])	#deepcopy()是深拷贝
-1439195035784
->>> list1[1][1] = 100
->>> list1
-['name', ['price', 100]]
->>> list2
-['name', ['price', 100]]
->>> list3
-['name', ['price', 100]]
->>> list4
-['name', ['price', 100]]
->>> list5
-['name', ['price', 400]]	#深拷贝的对象与原对象不再相关
+>>> list1 = ['hello world','chen haoran']
+>>> list([ len(word) for eachItem in list1 for word in eachItem.split(' ')])
+[5, 5, 4, 6]
 ```
 
-# hash值
+## 生成器表达式
+
+列表解析的一个不足就是必要生成所有的数据，用以创建整个列表，这可能对有大量数据的迭代器有负面效应，生成器表达式是列表解析的一个扩展，通过结合列表解析和生成器解决了这个问题。
+
+生成器使用了“延迟计算”，并不真正创建列表，而是返回一个生成器，这个生成器在每次计算出一个条目后，把这个条目“产生”出来。
 
 ```python
->>> hash({1,2,3})
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-TypeError: unhashable type: 'set'
->>> hash(frozenset([1,2,3]))
--7699079583225461316
->>> hash(frozenset({1,2,3}))
--7699079583225461316
->>> hash(1.2)
-461168601842738689
->>> hash(1.200)
-461168601842738689
+# 列表解析
+[expr for iter_var in iterable if cond_expr]
+# 生成器表达式
+(expr for iter_var in iterable if cond_expr)
 ```
 

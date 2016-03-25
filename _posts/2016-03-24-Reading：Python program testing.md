@@ -11,3 +11,13 @@ permalink: /archivers/reading-python-program-testing
 
 ## assert 断言
 
+## pass 语句
+
+```python
+if user_choice == 'do_calc':
+	pass
+else:
+	pass
+```
+
+这样的代码结构在开发和调试时很有用，因为编写代码的时候可能要先把结构定下来，但你不希望它干扰其他已经完成的代码。

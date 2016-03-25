@@ -459,3 +459,214 @@ True
 [0, 2, 4, 6, 8]
 ```
 
+# 函数何时有返回值？
+
+在使用可变对象的方法如sort()、extend()和reverse()的时候要注意，这些操作会在可变对象中原地执行操作，也就说现有的可变对象的数据会被改变，但是没有返回值。
+
+```python
+>>> list1 = [1,2,3]
+>>> list1.extend([4,5,6])
+>>> list1
+[1, 2, 3, 4, 5, 6]
+>>> list2 = list1.extend([4,5,6])	#list1.extend()未显式设置返回值，即默认返回None
+>>> list2
+>>> type(list2)
+<class 'NoneType'>
+```
+
+而不可变对象的方法是不能改变它们的值，所以它们必须返回一个新的对象。如果确实需要返回一个对象，可以使用如sorted()、reverse()等内建函数。
+
+# 深拷贝、浅拷贝
+
+浅拷贝：对不可变对象进行显式拷贝，并创建一个对象；对可变对象进行引用拷贝。
+
+浅拷贝包括：
+
+1、切片
+
+2、工厂函数（如list()、dict()等)
+
+3、copy模块的copy()函数
+
+4、list、dict、set的内建函数copy()
+
+```python
+>>> import copy
+>>> list1 = ['name',['price',400]]
+>>> list2 = list1[:]
+>>> list3 = list(list1)
+>>> list4 = copy.copy(list1)
+>>> list5 = copy.deepcopy(list1)
+>>> id(list1[1])	
+1439195035848
+>>> id(list2[1])
+1439195035848
+>>> id(list3[1])
+1439195035848
+>>> id(list4[1])
+1439195035848
+>>> id(list5[1])	#deepcopy()是深拷贝
+1439195035784
+>>> list1[1][1] = 100
+>>> list1
+['name', ['price', 100]]
+>>> list2
+['name', ['price', 100]]
+>>> list3
+['name', ['price', 100]]
+>>> list4
+['name', ['price', 100]]
+>>> list5
+['name', ['price', 400]]	#深拷贝的对象与原对象不再相关
+```
+
+# hash值
+
+```python
+>>> hash({1,2,3})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unhashable type: 'set'
+>>> hash(frozenset([1,2,3]))
+-7699079583225461316
+>>> hash(frozenset({1,2,3}))
+-7699079583225461316
+>>> hash(1.2)
+461168601842738689
+>>> hash(1.200)
+461168601842738689
+```
+
+self
+
+\_\_init\_\_() 不能有返回值
+
+\_\_new\_\_()
+
+\_\_del\_\_() 当所有对实例的引用都不在的时候，就会被调用
+
+public、private
+
+private属性可以通过\_\_来解决，Python实际上是将\_\_属性名更改为：_类名\_\_属性名。
+
+super().\_\_init\_\_()
+
+多重继承、组合（水池里边有多少鱼和乌龟）
+
+
+
+```python
+>>> class A:
+...     num = 0
+...
+>>> a = A()
+>>> b = A()
+>>> c = A()
+>>> a.num
+0
+>>> b.num = 100
+>>> c.num
+0
+>>> A.num = 10
+>>> a.num
+10
+>>> b.num
+100
+>>> c.num
+10
+```
+
+```python
+>>> class B:
+...     def setXY(self,x,y):
+...             self.x = x
+...             self.y = y
+...     def getXY(self):
+...             return(x,y)
+...
+>>> a = B()
+>>> a.__dict__
+{}
+>>> B.__dict__
+mappingproxy({'getXY': <function B.getXY at 0x000001F7D9B9E6A8>, '__weakref__': <attribute '__weakref__' of 'B' objects>, '__dict__': <attribute '__dict__' of 'B' objects>, '__doc__': None, 'setXY': <function B.setXY at 0x000001F7D9B9E620>, '__module__': '__main__'})
+>>> a.setXY(4,5)
+>>> a.__dict__
+{'x': 4, 'y': 5}
+```
+
+
+
+issubclass 宽松检查，任何一个类都是自己的子类
+
+isinstance
+
+hasattr(object,name)
+
+getattr(object,name[,default])
+
+setattr(object,name,value)
+
+delattr(object,name)
+
+property(fget= None,fset=None,fdel=None,doc=None)
+
+```python
+>>> class A:                                                
+...     def __init__(self,size=0):                          
+...             self.__size = size                          
+...     def getSize(self):                                  
+...             return self.__size                          
+...     def setSize(self,value):                            
+...             self.__size = value                         
+...     def delSize(self):                                  
+...             del self.__size                             
+...     x = property(getSize,setSize,delSize)               
+...                                                         
+>>> a = A()                                                   
+>>> a._A__size                                              
+0                                                           
+>>> a.x                                                     
+0                                                           
+>>> a.x = 5                                                 
+>>> a._A__size                                              
+5                                                           
+```
+
+
+
+工厂函数
+
+```python
+>>> class A:
+...     pass
+...
+>>> type(A)
+<class 'type'>
+>>> type(list)	#list()、int()不是是一个方法，而是类的示例
+<class 'type'>
+>>> type(int)
+<class 'type'>
+>>> b = int('1')
+>>> type(b)
+<class 'int'>
+>>> type(len)
+<class 'builtin_function_or_method'>
+```
+
+
+
+```python
+>>> class newInt(int):                                
+...     def __add__(self,other):                      
+...             return int.__sub__(self,other)        
+...     def __sub__(self,other):                      
+...             return int.__add__(self,other)        
+...                                                   
+>>> a = newInt('123')                                 
+>>> b = newInt('456')                                 
+>>> a - b        #对象之间也是可以相加减的，通过内置的__add__(self,other)进行处理
+579                                                   
+>>> a + b                                             
+-333                                                  
+```
+

@@ -441,6 +441,8 @@ if 'data' in locals() #locals()会返回当前作用域中定义的所有名的�
 | ValueError            | 传入无效的参数                                  |
 | ZeroDivisionError     | 除数为零                                     |
 
+## assert、raise
+
 ```python
 >>> assert 1<0	#断言，通常使用在程序测试阶段
 Traceback (most recent call last):

@@ -238,16 +238,6 @@ for each in sequence:
         print(each)
 ```
 
-#三元表达式
-
-```python
->>> x=1
->>> y=2
->>> num = x if x<y else y
->>> num
-1
-```
-
 #断言assert
 
 ```python
