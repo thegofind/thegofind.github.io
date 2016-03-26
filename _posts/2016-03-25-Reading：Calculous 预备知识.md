@@ -13,14 +13,20 @@ permalink: /archivers/reading-calculous-pre-knowledge
 
 每条非垂直的直线L有一个斜率，每行进单位距离时的高度变化为直线的斜率。
 
-垂直直线的斜率满足
+- 垂直直线的斜率满足：
+
 $$
 {m}_{{1}}{m}_{{2}}=-1
 $$
-平行直线的斜率满足
+
+- 平行直线的斜率满足
+
 $$
 {m}_{{1}}={m}_{{2}}
 $$
+
+
+
 # 函数和图形
 
 ## 函数
@@ -31,10 +37,10 @@ $$
 
 - 奇函数（原点对称）、偶函数（ y 轴对称）
   $$
-  x的偶函数：f\left({-x}\right)=f\left({x}\right)
+  {x的偶函数：f\left({-x}\right)=f\left({x}\right)}
   $$
   $$
-  x的奇函数：f\left({-x}\right)=-f\left({x}\right)
+  {x的奇函数：f\left({-x}\right)=-f\left({x}\right)}
   $$
 
 # 回归分析
