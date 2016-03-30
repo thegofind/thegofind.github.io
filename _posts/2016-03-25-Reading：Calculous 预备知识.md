@@ -16,13 +16,13 @@ permalink: /archivers/reading-calculous-pre-knowledge
 - 垂直直线的斜率满足：
 
 $$
-{m}_{{1}}{m}_{{2}}=-1
+{{m}_{{1}}{m}_{{2}}=-1}
 $$
 
-- 平行直线的斜率满足
+- 平行直线的斜率满足：
 
 $$
-{m}_{{1}}={m}_{{2}}
+{{m}_{{1}}={m}_{{2}}}
 $$
 
 
@@ -124,3 +124,21 @@ $$
 ![](http://github.com/thegofind/thegofind.github.io/raw/master/img/00006.png)
 
 （a）函数跳跃	（b）函数无限增大	（c）函数无限震荡
+
+- 极限的定义
+
+
+$$
+设 f(x) 是定义在 {x}_{{0}} 的一个可能不包括 {x}_{{0}} 的开区间上，我们说当 x 趋于 {x}_{{0}} 时 f(x) 趋于极限 L ，并标记
+$$
+$$
+{\lim_{x\rightarrow {x}_{{0}}}{f\left({x}\right)}=L}
+$$
+
+$$
+如果，对任何数 ε > 0 ，存在相应的 δ > 0 使得对所有满足 0 < | x - {x}_{{0}} | < δ 的 x ，有
+$$
+
+$$
+{\mid{f\left({x}\right)-L}\mid< \epsilon}
+$$
