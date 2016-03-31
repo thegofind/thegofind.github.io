@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Reading：Python list、tuple、dict、set"
+title:  "读书笔记：Python list、tuple、dict、set"
 date:   2016-03-15 09:00:13
-categories: [Python, Reading]
+categories: [Python, 读书笔记]
 permalink: /archivers/reading-python-list-tuple-dict-set
 ---
-本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
+本文为读书笔记，书籍为《Head First Python》、《Python基础教程》、《Python核心编程》。
 
 #  列表、元组、字典、集合
 

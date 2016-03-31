@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Reading：Python 迭代器、生成器、range()"
+title:  "读书笔记：Python 迭代器、生成器、range()"
 date:   2016-03-22 09:00:13
-categories: [Python, Reading]
+categories: [Python, 读书笔记]
 permalink: /archivers/reading-python-range
 ---
-本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
+本文为读书笔记，书籍为《Head First Python》、《Python基础教程》、《Python核心编程》。
 
 # 条件和循环
 
@@ -152,4 +152,3 @@ for eachURL in allURLs:
 # 生成器表达式
 (expr for iter_var in iterable if cond_expr)
 ```
-

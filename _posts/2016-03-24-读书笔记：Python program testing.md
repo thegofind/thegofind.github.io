@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Reading：Python program testing"
+title:  "读书笔记：Python program testing"
 date:   2016-03-24 09:00:13
-categories: [Python, Reading]
+categories: [Python, 读书笔记]
 permalink: /archivers/reading-python-program-testing
 ---
-本文为读书笔记，书籍为《Head First Python》、《Beginning Python: From Novice to Professional》、《Core Python Programming》。
+本文为读书笔记，书籍为《Head First Python》、《Python基础教程》、《Python核心编程》。
 
 # 常用测试方法
 
