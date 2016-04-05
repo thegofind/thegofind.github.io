@@ -26,7 +26,7 @@
         color: #333;
         
         h1,h2,h3,h4,h5,h6 {
-            color: #000;
+            color: #a41d1d;
         }
         
         h1, h2 {
@@ -35,13 +35,13 @@
         }
         
         h1, h2, h3 {
-            border-bottom: 1px solid #CCC;
+            border-bottom: 0px solid #CCC;
         }
         
         pre {
         	margin: 0 -30px;
             @include media-query($on-palm) {
-		        margin: 0 -10px;
+		        margin: 0 -30px;
             }
         }
         
